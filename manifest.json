@@ -3,8 +3,14 @@
   "name": "Clippy Cat",
   "version": "1.0",
   "description": "Scourge of the internet",
-  "content_scripts": [{
-    "matches":["http://*/*"],
-    "js": ["./js/main.js"]
-  }]
+  "icons": {
+    "48": "img/icon.png"
+  },
+  "content_scripts": [
+    {
+    "matches": ["https://*/*"],
+    "js": ["js/main.js"],
+    "css": ["styles/styles.css"]
+    }
+  ]
 }

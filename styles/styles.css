@@ -1,0 +1,7 @@
+/* style a div with absolute positioning in the bottom-right corner of the window */
+.clippyContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 300px;
+}

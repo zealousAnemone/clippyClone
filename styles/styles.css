@@ -3,5 +3,16 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 300px;
+}
+
+.message-box {
+  background-color: rgb(255, 252, 170);
+  color: rgb(5, 31, 80);
+  font-weight: bold;
+  padding: 5px;
+  height: 150px;
+}
+
+.clippy-cat {
+  height:300px !important;
 }

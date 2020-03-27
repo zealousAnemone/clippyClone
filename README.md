@@ -1,0 +1,2 @@
+# clippyClone
+Clippy Browser Extension

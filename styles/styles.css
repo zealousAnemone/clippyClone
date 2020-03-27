@@ -3,14 +3,19 @@
   position: fixed;
   bottom: 0;
   right: 0;
+  z-index: 9000 !important;
 }
 
 .message-box {
+  position: fixed;
+  bottom: 300px;
+  right: 100px;
   background-color: rgb(255, 252, 170);
   color: rgb(5, 31, 80);
   font-weight: bold;
   padding: 5px;
   height: 150px;
+  clip-path: polygon(100% 0, 100% 82%, 57% 82%, 57% 100%, 43% 82%, 0 80%, 0 0);
 }
 
 .clippy-cat {

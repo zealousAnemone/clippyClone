@@ -16,7 +16,12 @@ const clippyQuotes = {
 
 // check if the page is loaded
 window.onload = function () {
-  console.log('I\'m done!');
+  // set which type of quotes Clippy Cat will say - Right now I am hard-coding it
+  // as cat facts but user will be able to choose
+  const quoteType = 'catFacts';
+  const messages = clippyQuotes[quoteType];
+  let displayMsg = 'Hi! I\'m Clippy Cat! Nice to meet you!';
+  // console.log('I\'m done!');
   // create a container for Clippy Cat
   let clippyBox = document.createElement('div');
   // add styling
@@ -40,20 +45,17 @@ window.onload = function () {
   messageBox.classList.add('message-box');
 
   // add a message to the box
-  let message = document.createTextNode("hi there!");
+  let message = document.createTextNode(displayMsg);
   messageBox.append(message);
 
   // add the box on top of Clippy Cat so people can see it!
   clippyBox.prepend(messageBox);
 
-  // start the call to consistently update the message
-  updateMessage();
-
   function updateMessage () {
     // pick a random message here to display and update message variable with it
-
-    // swap out the message in the box
-
+    let i = Math.floor(Math.random() * 5);
+    displayMsg = messages[i];
+    messageBox.innerText = displayMsg;
     // set the message to show
     messageBox.style.display = 'block';
 
@@ -63,4 +65,7 @@ window.onload = function () {
     // recursively call updateMessage to run in 30 seconds
     setTimeout(updateMessage, 30000);
   }
+  // start the call to consistently update the message
+  setTimeout(updateMessage, 10000);
 };
+

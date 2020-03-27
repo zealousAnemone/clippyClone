@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "Clippy Cat",
+  "version": "1.0",
+  "description": "Scourge of the internet",
+  "content_scripts": [{
+    "matches":["http://*/*"],
+    "js": ["./js/main.js"]
+  }]
+}

@@ -11,7 +11,7 @@ window.onload = function () {
   clippy.src = 'https://i.ibb.co/XSJ854n/clippy-cat.png';
   clippy.classList.add('clippy-cat');
 
-  // put Clippy Cat in its box!
+  // put Clippy Cat in its box
   clippyBox.append(clippy);
 
   // load the image on the page inside the div
@@ -23,12 +23,11 @@ window.onload = function () {
   // add styling
   messageBox.classList.add('message-box');
 
-  // show first message
   // add a message to the box
   let message = document.createTextNode("hi there!");
   messageBox.append(message);
 
-  // add the box on top of Clippy Cat
+  // add the box on top of Clippy Cat so people can see it!
   clippyBox.prepend(messageBox);
 
   // start the call to consistently update the message

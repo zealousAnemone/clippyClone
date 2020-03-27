@@ -47,4 +47,60 @@ window.onload = function () {
     // recursively call updateMessage to run in 30 seconds
     setTimeout(updateMessage, 30000);
   }
+
+  /*custom messages*/
+//add a font
+// let fontElement = document.createElement('link');
+// fontElement.setAttribute('href', 'https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap');
+// document.body.append(fontElement);
+
+  // create a form with input text
+  
+  let customForm={
+
+  createAnElement: function(){
+    console.log('createElement');
+
+    let formElement = document.createElement('form');
+    formElement.setAttribute('name', 'customForm');
+    formElement.setAttribute('action', '#');
+    
+    let textElement = document.createElement('textarea');
+    textElement.setAttribute('class', 'customTextArea');
+    textElement.setAttribute('cols',40);
+    textElement.setAttribute('rows', 3);
+    textElement.setAttribute('placeholder', 'Type your memo here');
+
+    let buttonElement = document.createElement('button');
+    buttonElement.setAttribute('class', 'customButton');
+    buttonElement.innerHTML='save memo';
+
+    let reminderDateElement=document.createElement('input');
+    reminderDateElement.setAttribute('type','date');
+    reminderDateElement.setAttribute('id','customDate');
+    reminderDateElement.setAttribute('value','2020-03-28');
+    reminderDateElement.setAttribute('min','2020-01-01');
+    reminderDateElement.setAttribute('max','2028-12-31');
+    
+    formElement.append(textElement);
+    formElement.append(reminderDateElement);
+    formElement.append(buttonElement);
+    clippyBox.append(formElement);
+
+    formElement.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      let objClippy={
+        memo: textElement.value,
+        reminderDateElement: reminderDateElement.value
+      }
+      localStorage.setItem('ClippyCat', objClippy);
+    });
+  }
+};
+
+    let showCustomForm = document.createElement('a');
+    showCustomForm.setAttribute('href', '#');
+    showCustomForm.className="";
+
 };

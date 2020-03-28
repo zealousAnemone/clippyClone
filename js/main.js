@@ -2,7 +2,7 @@ const clippyQuotes = {
   corona: ['Wash your hands!', 'Stop touching your face!',
     'Practice social distancing', 'Wipe off your filthy phone!',
     'Stay away from Grandma!'],
-  workReminders: ['Look away from the screem for 20 seconds',
+  workReminders: ['Look away from the screen for 20 seconds',
     'Stand up and stretch', 'Sit up straight!', 'Drink some water'],
   encouragement: ['You look so cool today!', 'Wow! You are so smart!',
     'I\'m so glad you\'re my friend!', 'You\'re my favorite person'],

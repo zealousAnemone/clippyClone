@@ -3,6 +3,7 @@
   "name": "Clippy Cat",
   "version": "1.0",
   "description": "Scourge of the internet",
+  "options_page": "options.html",
   "icons": {
     "48": "img/icon.png"
   },

@@ -14,6 +14,8 @@ const clippyQuotes = {
   custom: [],
 };
 
+// chrome.storage.sync.set({'personalities': clippyQuotes});
+
 // prompt user to pick Clippy's personality from drop-down
 // don't show custom in drop-down of options
 // when they pick personality, switch Clippy to show message from that key
@@ -21,15 +23,24 @@ const clippyQuotes = {
 
 // check if the page is loaded
 window.onload = function () {
+  let messages = undefined;
+  chrome.storage.sync.get(['personality'], function(result) {
+    messages = clippyQuotes[result.personality];
+  });
+  console.log(messages);
   // set which type of quotes Clippy Cat will say
   // turn quotes object keys into an array
-  const personalities = Object.keys(clippyQuotes);
-  // get a random number between 0 and length of array using floor
-  const index = Math.floor(Math.random() * personalities.length);
-  // get the key at that index
-  const personalityType = personalities[index];
-  // assign messages the personality at the random index we grabbed
-  const messages = clippyQuotes[personalityType];
+  if (messages === undefined) {
+    console.log(`if statement.`);
+    const personalities = Object.keys(clippyQuotes);
+    // get a random number between 0 and length of array using floor
+    const index = Math.floor(Math.random() * personalities.length);
+    // get the key at that index
+    const personalityType = personalities[index];
+    // assign messages the personality at the random index we grabbed
+    messages = clippyQuotes[personalityType];
+    console.log(`messages is ${messages}`);
+  }
   let displayMsg = 'Hi! I\'m Clippy Cat! Nice to meet you!';
 
   // create a container for Clippy Cat
@@ -61,7 +72,10 @@ window.onload = function () {
   // add the box on top of Clippy Cat so people can see it!
   clippyBox.prepend(messageBox);
 
-  function updateMessage (message) {
+  // start the call to consistently update the message
+  setTimeout(updateMessage, 10000);
+
+  function updateMessage(message) {
     // pick a random message here to display and update message variable with it
     let hideMessage, update;
 
@@ -72,6 +86,7 @@ window.onload = function () {
       messageBox.style.display = 'block';
     }
     else{
+      console.log(messages);
     let i = Math.floor(Math.random() * messages.length);
     displayMsg = messages[i];
     messageBox.innerText = displayMsg;
@@ -174,7 +189,6 @@ window.onload = function () {
 
     });
 
-  // start the call to consistently update the message
-  setTimeout(updateMessage, 10000);
+  
 };
 

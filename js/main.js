@@ -51,8 +51,17 @@ window.onload = function () {
   // add the box on top of Clippy Cat so people can see it!
   clippyBox.prepend(messageBox);
 
-  function updateMessage () {
+  function updateMessage (message) {
     // pick a random message here to display and update message variable with it
+    let hideMessage, update;
+
+    if(message!=undefined){
+      clearTimeout(hideMessage);
+      clearTimeout(update);
+      messageBox.innerText = message;
+      messageBox.style.display = 'block';
+    }
+    else{
     let i = Math.floor(Math.random() * 5);
     displayMsg = messages[i];
     messageBox.innerText = displayMsg;
@@ -60,24 +69,17 @@ window.onload = function () {
     messageBox.style.display = 'block';
 
     // hide the message box after 10 seconds
-    setTimeout(function () { messageBox.style.display = 'none'; }, 10000);
+    hideMessage=setTimeout(function () { messageBox.style.display = 'none'; }, 10000);
 
     // recursively call updateMessage to run in 30 seconds
-    setTimeout(updateMessage, 30000);
+    update=setTimeout(updateMessage, 30000);
+    }
   }
 
   /*custom messages*/
-//add a font
-// let fontElement = document.createElement('link');
-// fontElement.setAttribute('href', 'https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap');
-// document.body.append(fontElement);
-
-  // create a form with input text
-  
   let customForm={
 
   createAnElement: function(){
-    console.log('createElement');
 
     let formElement = document.createElement('form');
     formElement.setAttribute('name', 'customForm');
@@ -85,9 +87,9 @@ window.onload = function () {
     
     let textElement = document.createElement('textarea');
     textElement.setAttribute('class', 'customTextArea');
-    textElement.setAttribute('cols',40);
-    textElement.setAttribute('rows', 3);
-    textElement.setAttribute('placeholder', 'Type your memo here');
+    // textElement.setAttribute('cols',40);
+    // textElement.setAttribute('rows', 3);
+    textElement.setAttribute('placeholder', 'Add a new memo here');
 
     let buttonElement = document.createElement('button');
     buttonElement.setAttribute('class', 'customButton');
@@ -96,29 +98,71 @@ window.onload = function () {
     let reminderDateElement=document.createElement('input');
     reminderDateElement.setAttribute('type','date');
     reminderDateElement.setAttribute('id','customDate');
-    reminderDateElement.setAttribute('value','2020-03-28');
-    reminderDateElement.setAttribute('min','2020-01-01');
-    reminderDateElement.setAttribute('max','2028-12-31');
+
+    // reminderDateElement.setAttribute('value','2020-03-28');
+    // reminderDateElement.setAttribute('min','2020-01-01');
+    // reminderDateElement.setAttribute('max','2028-12-31');
     
     formElement.append(textElement);
-    formElement.append(reminderDateElement);
-    formElement.append(buttonElement);
+    //formElement.append(reminderDateElement);
+
+    let plainDiv=document.createElement('div');
+    plainDiv.append(buttonElement);
+    formElement.append(plainDiv);
     clippyBox.append(formElement);
 
     formElement.addEventListener('submit', (e)=>{
       e.preventDefault();
+      clippyQuotes.custom.push(textElement.value);
+      console.log(clippyQuotes);
 
-      let objClippy={
+      let objClippy={};
+      objClippy={
         memo: textElement.value,
-        reminderDateElement: reminderDateElement.value
-      }
-      localStorage.setItem('ClippyCat', objClippy);
+        //reminderDateElement: reminderDateElement.value
+      };
+
+      messageBox.innerHTML= objClippy.memo;
+      //messageBox.innerHTML+= objClippy.reminderDateElement;
+
+      localStorage.setItem('ClippyCat', JSON.stringify(objClippy));
+      updateMessage (objClippy.memo);
+      document.querySelector('.customTextArea').value='';
+
+      document.querySelector('form[name="customForm"]').classList.toggle('hide');
+      document.querySelector('.showCustomForm').innerHTML='add a reminder'
+
     });
   }
 };
 
-    let showCustomForm = document.createElement('a');
-    showCustomForm.setAttribute('href', '#');
+   let buttonMessage=['add a reminder', 'hide a note'];
+
+    let showCustomFormButton = document.createElement('a');
+    showCustomFormButton.setAttribute('href', '#');
+    showCustomFormButton.classList.add('showCustomForm');
+    showCustomFormButton.innerHTML=buttonMessage[0];
+
+    let wrapDiv = document.createElement('div');
+    wrapDiv.append(showCustomFormButton);
+    clippyBox.append(wrapDiv);
+
+ 
+    
+    showCustomFormButton.addEventListener('click', (e)=>{
+      e.preventDefault();
+      let formEl=document.querySelector('form[name="customForm"]');
+      if(formEl==this.undefined){
+      customForm.createAnElement();
+      showCustomFormButton.innerHTML=buttonMessage[1];
+      } 
+      else {
+        
+        formEl.classList.toggle('hide');
+        formEl.classList.contains('hide') ?  showCustomFormButton.innerHTML=buttonMessage[0] : showCustomFormButton.innerHTML=buttonMessage[1];
+      }
+
+    });
 
   // start the call to consistently update the message
   setTimeout(updateMessage, 10000);

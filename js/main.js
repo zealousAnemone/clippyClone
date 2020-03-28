@@ -6,7 +6,7 @@ const clippyQuotes = {
     'Stand up and stretch', 'Sit up straight!', 'Drink some water'],
   encouragement: ['You look so cool today!', 'Wow! You are so smart!',
     'I\'m so glad you\'re my friend!', 'You\'re my favorite person'],
-  mean: [],
+  mean: ['Did you even lick yourself this morning?', 'You look terrible, did you get less than 22 hours of sleep last night?'],
   catFacts: ['A cat was the mayor of an Alaskan town for 20 years',
     'Isaac Newton invented the cat door', 'The oldest cat in the world was 38',
     'The first cat in space was a French cat named Felicette in 1963',
@@ -14,16 +14,26 @@ const clippyQuotes = {
   custom: [],
 };
 
+// prompt user to pick Clippy's personality from drop-down
+// don't show custom in drop-down of options
+// when they pick personality, switch Clippy to show message from that key
+// if user inputs custom message, switch personality to custom
+
 // check if the page is loaded
 window.onload = function () {
-  // set which type of quotes Clippy Cat will say - Right now I am hard-coding it
-  // as cat facts but user will be able to choose
-  const quoteType = 'catFacts';
-  const messages = clippyQuotes[quoteType];
+  // set which type of quotes Clippy Cat will say
+  // turn quotes object keys into an array
+  const personalities = Object.keys(clippyQuotes);
+  // get a random number between 0 and length of array using floor
+  const index = Math.floor(Math.random() * personalities.length);
+  // get the key at that index
+  const personalityType = personalities[index];
+  // assign messages the personality at the random index we grabbed
+  const messages = clippyQuotes[personalityType];
   let displayMsg = 'Hi! I\'m Clippy Cat! Nice to meet you!';
-  // console.log('I\'m done!');
+
   // create a container for Clippy Cat
-  let clippyBox = document.createElement('div');
+  const clippyBox = document.createElement('div');
   // add styling
   clippyBox.classList.add('clippyContainer');
 
@@ -62,7 +72,7 @@ window.onload = function () {
       messageBox.style.display = 'block';
     }
     else{
-    let i = Math.floor(Math.random() * 5);
+    let i = Math.floor(Math.random() * messages.length);
     displayMsg = messages[i];
     messageBox.innerText = displayMsg;
     // set the message to show
